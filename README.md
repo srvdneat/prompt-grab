@@ -1,46 +1,220 @@
-# Getting Started with Create React App
+# Prompt Grab
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A beautiful, native macOS-style prompt repository app for storing, organizing, and retrieving text prompts. Built with React, TypeScript, and Tailwind CSS.
 
-## Available Scripts
+## ✨ Features
 
-In the project directory, you can run:
+### Core Functionality
+- **Prompt Management**: Create, edit, duplicate, and delete prompts
+- **Smart Organization**: Organize prompts with folders and tags
+- **Search & Filter**: Powerful search with Cmd+K shortcut
+- **Favorites**: Star important prompts for quick access
+- **Version History**: Automatic version tracking with history
+- **Autosave**: Never lose your work with automatic saving
 
-### `npm start`
+### User Experience
+- **Native macOS Feel**: Clean, minimalist design inspired by native macOS apps
+- **Dark/Light Mode**: Toggle between themes with native controls
+- **Keyboard Shortcuts**: Full keyboard navigation support
+- **Responsive Design**: Works seamlessly across different screen sizes
+- **Drag & Drop**: Intuitive folder organization
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Advanced Features
+- **Export Options**: Export prompts as JSON or plain text
+- **Copy to Clipboard**: One-click copying of prompt content
+- **Grid/List Views**: Choose your preferred viewing mode
+- **Local Storage**: All data persists locally in your browser
+- **Version Control**: Track changes with automatic version history
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## 🚀 Getting Started
 
-### `npm test`
+### Prerequisites
+- Node.js 16+ 
+- npm or yarn
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Installation
 
-### `npm run build`
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd prompt-grab
+   ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+3. **Start the development server**
+   ```bash
+   npm start
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+4. **Open your browser**
+   Navigate to `http://localhost:3000`
 
-### `npm run eject`
+## ⌨️ Keyboard Shortcuts
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+| Shortcut | Action |
+|----------|--------|
+| `⌘K` | Focus search bar |
+| `⌘N` | Create new prompt |
+| `⌘S` | Save current prompt |
+| `⌘F` | Find in current prompt |
+| `⌘D` | Toggle dark mode |
+| `⌘G` | Toggle grid/list view |
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🎨 Design Philosophy
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Prompt Grab embodies the **Superhuman for prompt engineers** philosophy:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- **Minimalist Aesthetic**: Clean lines, high contrast, grayscale palette
+- **Native Feel**: Inspired by Notion, Linear, Raycast, and Obsidian
+- **Precision & Clarity**: Every element serves a purpose
+- **Elegant Typography**: Beautiful, readable text with proper spacing
+- **Keyboard-First**: Designed for power users who prefer keyboard navigation
 
-## Learn More
+## 🏗️ Architecture
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Tech Stack
+- **React 18** with TypeScript
+- **Tailwind CSS** for styling
+- **Zustand** for state management
+- **Lucide React** for icons
+- **Local Storage** for data persistence
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Key Components
+- `Layout`: Main app structure with sidebar and content
+- `Sidebar`: Navigation, folders, and tags
+- `Header`: Search, actions, and view controls
+- `PromptList`: Display prompts in list or grid view
+- `PromptEditor`: Rich text editor with metadata
+- `PromptCard`: Individual prompt display component
+
+### State Management
+The app uses Zustand for lightweight, performant state management:
+- **Prompts**: CRUD operations with version history
+- **Folders**: Hierarchical organization
+- **Tags**: Flexible categorization
+- **UI State**: View modes, selections, and preferences
+
+## 📁 Data Structure
+
+### Prompt
+```typescript
+interface Prompt {
+  id: string;
+  title: string;
+  content: string;
+  tags: string[];
+  folderId?: string;
+  isFavorite: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  version: number;
+  history: PromptVersion[];
+}
+```
+
+### Folder
+```typescript
+interface Folder {
+  id: string;
+  name: string;
+  color?: string;
+  createdAt: Date;
+}
+```
+
+### Tag
+```typescript
+interface Tag {
+  id: string;
+  name: string;
+  color?: string;
+  createdAt: Date;
+}
+```
+
+## 🎯 Use Cases
+
+### For Developers
+- Store code review templates
+- Organize debugging prompts
+- Maintain documentation templates
+- Keep API testing prompts
+
+### For Writers
+- Creative writing prompts
+- Content templates
+- Research questions
+- Editorial guidelines
+
+### For Productivity
+- Meeting templates
+- Email templates
+- Task management prompts
+- Goal setting frameworks
+
+## 🔧 Development
+
+### Available Scripts
+- `npm start` - Start development server
+- `npm run build` - Build for production
+- `npm test` - Run test suite
+- `npm run eject` - Eject from Create React App
+
+### Project Structure
+```
+src/
+├── components/          # React components
+│   ├── Layout.tsx
+│   ├── Header.tsx
+│   ├── Sidebar.tsx
+│   ├── PromptList.tsx
+│   ├── PromptCard.tsx
+│   └── PromptEditor.tsx
+├── store/              # State management
+│   └── promptStore.ts
+├── App.tsx             # Main app component
+└── index.css           # Global styles
+```
+
+## 🚀 Deployment
+
+### Build for Production
+```bash
+npm run build
+```
+
+### Deploy to Netlify
+1. Connect your repository to Netlify
+2. Set build command: `npm run build`
+3. Set publish directory: `build`
+
+### Deploy to Vercel
+1. Install Vercel CLI: `npm i -g vercel`
+2. Run: `vercel`
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Inspired by Notion, Linear, Raycast, and Obsidian
+- Built with modern React patterns and best practices
+- Designed for the macOS aesthetic and user experience
+- Special thanks to the open source community
+
+---
+
+**Prompt Grab** - Where prompts find their home. 🏠
