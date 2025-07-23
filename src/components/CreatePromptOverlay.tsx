@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { X, Tag, Folder } from 'lucide-react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { X } from 'lucide-react';
 import { usePromptStore } from '../store/promptStore';
 
 interface CreatePromptOverlayProps {
@@ -20,6 +20,19 @@ export const CreatePromptOverlay: React.FC<CreatePromptOverlayProps> = ({ isOpen
   const contentRef = useRef<HTMLTextAreaElement>(null);
   const tagsRef = useRef<HTMLDivElement>(null);
   const folderRef = useRef<HTMLSelectElement>(null);
+
+  const handleCreate = useCallback(() => {
+    if (title.trim() && content.trim()) {
+      addPrompt({
+        title: title.trim(),
+        content: content.trim(),
+        tags: selectedTags,
+        folderId: selectedFolder || undefined,
+        isFavorite: false,
+      });
+      onClose();
+    }
+  }, [title, content, selectedTags, selectedFolder, addPrompt, onClose]);
 
   // Reset form when overlay opens
   useEffect(() => {
@@ -49,20 +62,7 @@ export const CreatePromptOverlay: React.FC<CreatePromptOverlayProps> = ({ isOpen
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
-
-  const handleCreate = () => {
-    if (title.trim() && content.trim()) {
-      addPrompt({
-        title: title.trim(),
-        content: content.trim(),
-        tags: selectedTags,
-        folderId: selectedFolder || undefined,
-        isFavorite: false,
-      });
-      onClose();
-    }
-  };
+  }, [isOpen, onClose, handleCreate]);
 
   const handleTagToggle = (tagName: string) => {
     setSelectedTags(prev => 
